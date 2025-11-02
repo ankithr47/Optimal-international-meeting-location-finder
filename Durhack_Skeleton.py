@@ -72,7 +72,7 @@ Local_wdt_end = #input
 
 #-----------------------------------------------------------------------------------------------------------------
 
-def find_score(dep,arr) : 
+def find_score(dep,arr) :  #---------------------ankith code, 
     emission = 0          #####    inport data   ##### yerlan code
     time = 0              #####    inport data   ##### yerlan code
     return [emission, time]
@@ -118,7 +118,7 @@ for target in targets :   #something to do with if dep and arr being the same gi
         nights = (Event_Length//daylength)
         return start_time + Event_Length + (nightlength * nights)
 
-#------------------ITERATE WHEN IN RANGE----------------
+#------------------ITERATE IN RANGE OF POSIBLE MEETING TIME----------------
 
     while End_Time <= end_date :
         good = true
@@ -127,26 +127,43 @@ for target in targets :   #something to do with if dep and arr being the same gi
         if Start_Time + Min_Length_Per_Day > Make_DT(UTC_wdt_end, Start_Time) or Start_Time < Make_DT(UTC_wdt_start, Start_Time) :
             good = false
         if good == true : #read iff start end time -> meeting time per day in range(min,max)
-            Start_Times.append(Start_Time)  
-            End_Times.append(Start_Time)
-        Start_Time += iterating_time #iterate
-        End_Time = End(Start_Time)   #next end
-    
-        times = []
-        emissions = []
-        
+            #Start_Times.append(Start_Time)  
+            #End_Times.append(Start_Time)
+
 #------------------ITERATE WRT ATTENDEES----------------
-        
-        for j in attendees :
-            emissions.append(find_score(j,target)[0])
-            times.append(find_score(j,target)[1])
+            times = []
+            emissions = []
+            
+            for j in attendees :
+                emissions.append(find_score(j,target)[0])
+                times.append(find_score(j,target)[1])
+    
+            T_emission = sum(emissions)
+            A_time = sum(times)/(len(times))
+            fairness = np.std(times)
+    
+            score = T_emission * Weight_Vector[0] + A_time * Weight_Vector[1] + fairness * Weight_Vector[2]
 
-        T_emission = sum(emissions)
-        A_time = sum(times)/(len(times))
-        fairness = np.std(times)
+#---------------------------------------------------------------------
+        Start_Time += iterating_time #iterate         #times
+        End_Time = End(Start_Time)   #next end
 
-        score = T_emission * Weight_Vector[0] + A_time * Weight_Vector[1] + fairness * Weight_Vector[2]
     
     target_score[target] = [score, tod]   #value for specific time        # tod=time of day
 
 ####    can now sort target_score  to get list of best to worse
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
