@@ -90,7 +90,7 @@ Local_wdt_end = #input
     #def arrival_time(data,city0,city1,meeting_end):
     
         # 1. Calculate the departure time for all flights # and filter out flights that don't match our criteria. 
-        best_arv_flight = data.with_columns((pl.col("SCHEDULED_DEPARTURE_DATE_TIME_LOCAL") + pl.col("FLIGHT_DURATION")).alias("SCHEDULED_ARRIVAL_DATE_TIME_LOCAL")).filter((pl.col("DEPCITY") == city1) & (pl.col("ARRCITY") == city0) & (pl.col("SCHEDULED_DEPARTURE_DATE_TIME_LOCAL") > meeting_end)).sort("SCHEDULED_ARRIVAL_DATE_TIME_LOCAL", descending=False).head(1) # 3. Select the top one return best_flight
+        best_arv_flight = data.with_columns((pl.col("SCHEDULED_DEPARTURE_DATE_TIME_LOCAL") + pl.col("FLIGHT_DURATION")).alias("SCHEDULED_ARRIVAL_DATE_TIME_LOCAL")).filter((pl.col("DEPCITY") == city0) & (pl.col("ARRCITY") == city1) & (pl.col("SCHEDULED_DEPARTURE_DATE_TIME_LOCAL") > meeting_end)).sort("SCHEDULED_ARRIVAL_DATE_TIME_LOCAL", descending=False).head(1) # 3. Select the top one return best_flight
         #relevant_data = data.filter((pl.col("DEPCITY") == city0) & (pl.col("ARRCITY")) == city1)& (arrive_before_time >pl.col('SCHEDULED_ARRIVAL_DATE_TIME_LOCAL'))
         
         #return best_arv_flight['SCHEDULED_ARRIVAL_DATE_TIME_LOCAL','ESTIMATED_CO2_TOTAL_TONNES']
