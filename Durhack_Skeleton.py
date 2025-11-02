@@ -103,6 +103,13 @@ Local_wdt_end = #input
         #return difference
     velctor = [difference,dep_optimal[1]+arr_optimal[1]]
     return vector
+def find_score(dep,arr) :  #---------------------ankith code, 
+    emission = 0          #####    inport data   ##### yerlan code
+    time = 0              #####    inport data   ##### yerlan code
+    return [emission, time]
+
+
+
 
 
 
@@ -161,6 +168,8 @@ for target in targets :   #something to do with if dep and arr being the same gi
             for j in attendees :
                 emissions.append(find_score(j,target)[1])
                 times.append(find_score(j,target)[0])
+                emissions.append(find_score(j,target)[0])
+                times.append(find_score(j,target)[1])
     
             T_emission = sum(emissions)
             A_time = sum(times)/(len(times))
@@ -174,6 +183,22 @@ for target in targets :   #something to do with if dep and arr being the same gi
 
     
    # target_score[target] = [score, time]   #value for specific time     
+
+####    can now sort target_score  to get list of best to worse
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ####    can now sort target_score  to get list of best to worse
 
