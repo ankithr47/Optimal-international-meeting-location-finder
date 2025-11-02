@@ -4,9 +4,22 @@ import polars as pl
 import datetime 
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
+import time
 
-Days_Before = 5
+target_score = {}
+times = []
+emissions = []
+text_labels = []
+Days_Before = 3
+
+#figure
+plt.ion()
+fig, (fig1) = plt.subplots(1, 1, figsize=(8, 8))
+scat = fig1.scatter([], [], 'ro', markersize=5)
+
+
+
+#-----------------
 
 # Open and read the JSON file
 def file_list(json_file):
@@ -59,8 +72,6 @@ def Event_Dur(json_file):
 #---------------------------------------------------------------------------------------------------------------
 
 Event_Length = Event_Dur(json_file)
-
-target_score = {}
 
 Weight_Vector = [1,1,1]
 
@@ -155,8 +166,6 @@ for target in targets :   #something to do with if dep and arr being the same gi
             #End_Times.append(Start_Time)
 
 #------------------ITERATE WRT ATTENDEES----------------
-            times = []
-            emissions = []
             
             for j in attendees :
                 emissions.append(find_score(j,target)[1])
@@ -173,7 +182,8 @@ for target in targets :   #something to do with if dep and arr being the same gi
         End_Time = End(Start_Time)   #next end
 
     
-   # target_score[target] = [score, time]   #value for specific time     
+    target_score[target] = [score, A_time,fairness, T_emission]
+    plt.draw()#value for specific time     
 
 ####    can now sort target_score  to get list of best to worse
 
