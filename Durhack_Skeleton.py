@@ -72,6 +72,24 @@ Local_wdt_end = #input
 
 #-----------------------------------------------------------------------------------------------------------------
 
+def departure_time(data,city0,city1,arrive_before_time):
+
+    # 1. Calculate the arrival time for all flights # and filter out flights that don't match our criteria. 
+    best_dept_flight = data.with_columns((pl.col("SCHEDULED_DEPARTURE_DATE_TIME_LOCAL") + pl.col("FLIGHT_DURATION")).alias("SCHEDULED_ARRIVAL_DATE_TIME_LOCAL")).filter((pl.col("DEPCITY") == city0) & (pl.col("ARRCITY") == city1) & (pl.col("SCHEDULED_ARRIVAL_DATE_TIME_LOCAL") < arrive_before_time)).sort("SCHEDULED_DEPARTURE_DATE_TIME_LOCAL", descending=True ).head(1) # 3. Select the top one return best_flight
+    #relevant_data = data.filter((pl.col("DEPCITY") == city0) & (pl.col("ARRCITY")) == city1)& (arrive_before_time >pl.col('SCHEDULED_ARRIVAL_DATE_TIME_LOCAL'))
+    
+    return best_dept_flight['SCHEDULED_DEPARTURE_DATE_TIME_LOCAL','ESTIMATED_CO2_TOTAL_TONNES']
+
+
+
+
+
+
+
+
+
+
+
 def find_score(dep,arr) :  #---------------------ankith code, 
     emission = 0          #####    inport data   ##### yerlan code
     time = 0              #####    inport data   ##### yerlan code
